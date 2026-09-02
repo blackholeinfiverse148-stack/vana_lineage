@@ -1,0 +1,31 @@
+# ==============================================================================
+# BHIV VANA Lineage Viewer — Production Compose Template
+#
+# IMG_TAG is replaced at deploy time with the 7-char Git commit SHA.
+# Do not run this file directly — it is compiled by the CI/CD pipeline.
+# ==============================================================================
+
+services:
+  vana-lineage:
+    image: bhiv/vana-lineage:IMG_TAG
+    container_name: bhiv_vana_lineage
+    restart: unless-stopped
+    ports:
+      - "5179:80"
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://localhost:80/health"]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+      start_period: 5s
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    networks:
+      - vana_network
+
+networks:
+  vana_network:
+    driver: bridge
