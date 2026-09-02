@@ -143,7 +143,7 @@ jobs:
               fi
               
               API_HEALTH=0
-              curl -sf http://localhost:5179/health > /dev/null && API_HEALTH=1
+              curl -sf http://localhost:5178/health > /dev/null && API_HEALTH=1
               
               if [ "$UNHEALTHY_COUNT" -eq 0 ] && [ "$STARTING_COUNT" -eq 0 ] && [ "$API_HEALTH" -eq 1 ]; then
                 echo "✅ VANA Lineage Viewer container and health endpoints are healthy!"

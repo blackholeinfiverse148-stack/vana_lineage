@@ -2,7 +2,7 @@
 
 > **Service**: VANA / Prakriti Cross-Group Runtime Viewer
 > **Type**: Static Single-Page Dashboard (Containerized via Alpine Nginx)
-> **Default Port**: `5179` (Internal: `80`)
+> **Default Port**: `5178` (Internal: `80`)
 
 ---
 
@@ -11,7 +11,7 @@
 `vana_lineage` is packaged into an ultra-lightweight Docker image using `nginx:alpine-slim` (~10MB RAM footprint, zero CPU idle load). 
 
 ```
-[ Browser ] ──HTTPS──> [ Host Nginx Reverse Proxy (SSL) ] ──HTTP──> [ Docker Container (Port 5179) ]
+[ Browser ] ──HTTPS──> [ Host Nginx Reverse Proxy (SSL) ] ──HTTP──> [ Docker Container (Port 5178) ]
 ```
 
 ---
@@ -35,11 +35,11 @@ docker compose up -d --build
 docker ps --filter "name=bhiv_vana_lineage"
 
 # Test healthcheck endpoint
-curl http://localhost:5179/health
+curl http://localhost:5178/health
 # Output: healthy
 
 # Test HTML response
-curl -I http://localhost:5179/
+curl -I http://localhost:5178/
 # Output: HTTP/1.1 200 OK
 ```
 
@@ -72,7 +72,7 @@ server {
     add_header X-XSS-Protection "1; mode=block" always;
 
     location / {
-        proxy_pass http://127.0.0.1:5179;
+        proxy_pass http://127.0.0.1:5178;
         proxy_http_version 1.1;
 
         proxy_set_header Host $host;
@@ -87,7 +87,7 @@ server {
 
 ```nginx
 location /lineage/ {
-    proxy_pass http://127.0.0.1:5179/;
+    proxy_pass http://127.0.0.1:5178/;
     proxy_http_version 1.1;
 
     proxy_set_header Host $host;
