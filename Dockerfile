@@ -11,7 +11,7 @@ RUN rm -rf /etc/nginx/conf.d/default.conf /usr/share/nginx/html/*
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 
 # Copy static viewer HTML as index.html
-COPY vana-lineage-viewer_git.html /usr/share/nginx/html/index.html
+COPY *.html /usr/share/nginx/html/index.html
 
 # Expose HTTP port
 EXPOSE 80
